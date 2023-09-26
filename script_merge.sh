@@ -1,4 +1,4 @@
-remot="Get_next_line"
+remot="Get"
 url = "vogsphere.42abudhabi.ae:vogsphere/intra-uuid-18285a8d-9e16-4198-a464-bee3bc4ca0a2-5201907-mhashir"
 git remote add "$remot" vogsphere.42abudhabi.ae:vogsphere/intra-uuid-18285a8d-9e16-4198-a464-bee3bc4ca0a2-5201907-mhashir
 git fetch "$remot"

@@ -3,7 +3,7 @@ url = "git@vogsphere.42abudhabi.ae:vogsphere/intra-uuid-18285a8d-9e16-4198-a464-
 git remote add "$remot" "$url"
 git fetch "$remot"
 git merge "$remot/master" --allow-unrelated-histories -m "commited $remot"
-mv ex* "./Piscine/$remot"
+#mv ex* "./Piscine/$remot"
 git add .
 git commit -m "committed $remot"
 git push origin master

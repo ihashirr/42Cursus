@@ -1,6 +1,6 @@
-remot="C05"
+remot="C06"
 
-git remote add "$remot" git@vogsphere.42abudhabi.ae:vogsphere/intra-uuid-6fab5b67-09bb-4bc3-a1aa-89da637b3cd5-4756966-mhashir
+git remote add "$remot" git@vogsphere.42abudhabi.ae:vogsphere/intra-uuid-6d3f6e6a-1861-48c9-932a-b4281de7bffd-4756967-mhashir
 git fetch "$remot"
 git merge "$remot/master" --allow-unrelated-histories -m "commited $remot"
 mv ex* "./Piscine/$remot"

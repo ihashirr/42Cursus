@@ -4,34 +4,9 @@
 #include <stdio.h>
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 10
- #endif
+#define BUFFER_SIZE 5
+#endif
 #include <time.h>
-
-char *ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t i;
-	size_t j;
-	char *str;
-
-	str = (char *)malloc(sizeof(*s) * (len + 1));
-	if (str == 0)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (i >= start && j < len)
-		{
-			str[j] = s[i];
-			j++;
-		}
-		i++;
-	}
-	str[j] = 0;
-	return (str);
-}
-
 int ft_strlen(const char *str)
 {
 	int i;
@@ -40,6 +15,70 @@ int ft_strlen(const char *str)
 	while (str[i])
 		i++;
 	return (i);
+}
+// char *ft_substr(char const *s, unsigned int start, size_t len)
+// {
+// 	size_t i;
+// 	size_t j;
+// 	char *str;
+
+// 	str = (char *)malloc(sizeof(*s) * (len + 1));
+// 	if (str == 0)
+// 		return (NULL);
+// 	i = 0;
+// 	j = 0;
+// 	while (s[i])
+// 	{
+// 		if (i >= start && j < len)
+// 		{
+// 			str[j] = s[i];
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	str[j] = 0;
+// 	return (str);
+// }
+size_t ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t src_len;
+	size_t i;
+
+	src_len = ft_strlen(src);
+	i = 0;
+	if (dstsize == 0)
+		return (src_len);
+	while (*src != '\0' && i < dstsize - 1)
+	{
+		*dst++ = *src++;
+		i++;
+	}
+	*dst = '\0';
+	return (src_len);
+}
+char *ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char *result;
+	size_t trimlen;
+
+	if (!s || start >= ft_strlen(s))
+	{
+		result = malloc(1);
+		if (!result)
+			return (NULL);
+		result[0] = '\0';
+		return (result);
+	}
+	trimlen = ft_strlen(s + start);
+	if (ft_strlen(s) < start)
+		len = 0;
+	if (trimlen < len)
+		len = trimlen;
+	result = malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (NULL);
+	ft_strlcpy(result, s + start, len + 1);
+	return (result);
 }
 
 char *ft_strchr(const char *s, int i)
@@ -98,7 +137,6 @@ char *ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-
 static char *extract(char *line)
 {
 	size_t count;
@@ -134,10 +172,12 @@ static char *function_name(int fd, char *buf, char *backup)
 		buf[read_line] = '\0';
 		if (!backup)
 			backup = ft_strdup("");
-		char_temp = backup;
-		backup = ft_strjoin(char_temp, buf);
-		free(char_temp);
-		char_temp = NULL;
+		else
+		{
+			char_temp = backup;
+			backup = ft_strjoin(backup, buf);
+			// free(char_temp);
+		}
 		if (ft_strchr(buf, '\n'))
 			break;
 	}
@@ -152,7 +192,7 @@ char *get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buf = (char *)malloc(sizeof(char)*(BUFFER_SIZE + 1));
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
 	line = function_name(fd, buf, backup);
@@ -169,10 +209,10 @@ int main(void)
 	int fd;
 	char *line;
 	fd = open("shortLines.txt", O_RDONLY);
-	int i = 1;	
+	int i = 1;
 	while ((line = get_next_line(fd)))
 	{
-		printf("\tLine number: %d\t%s\n\n\n",i, line);
+		printf("\tLine number: %d\t%s\n\n\n", i, line);
 		free(line);
 		i++;
 	}

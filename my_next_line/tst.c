@@ -5,8 +5,9 @@ void Nuller(char *str){
 	*(str+3)='\0';
 }
 int main(){
-	char s[3] ="ha";
-	// Nuller(s);
-	printf("%s",s);
-
+	char a[];
+	a = "has";
+	printf("%d",*a);
+	free(a);
+	a = NULL;
 }

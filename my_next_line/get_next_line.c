@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 100000
 #endif
 #include <time.h>
 int ft_strlen(const char *str)
@@ -167,9 +167,10 @@ static char *function_name(int fd, char *buf, char *backup)
 		read_line = read(fd, buf, BUFFER_SIZE);
 		if (read_line == -1)
 			return (0);
-		else if (read_line == 0)
+		else if (read_line == 0){
 			break;
-		buf[read_line] = '\0';
+		}
+			buf[read_line] = '\0';
 		if (!backup)
 			backup = ft_strdup("");
 		char_temp = backup;
@@ -210,7 +211,7 @@ int main(void)
 	while ((line = get_next_line(fd)))
 	{
 		printf("\tLine number: %d\t%s\n\n\n", i, line);
-		// free(line);
+		free(line);
 		i++;
 	}
 	printf("End of file reached\n");

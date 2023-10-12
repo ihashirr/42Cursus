@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Nuller(char *str){
-	*(str+3)='\0';
+void increment(char *str) {
+    str= "s\0";
 }
-int main(){
-	char a[];
-	a = "has";
-	printf("%d",*a);
-	free(a);
-	a = NULL;
+
+int main() {
+	char*s;
+	increment(s);
+
+	printf("%s\n", s);
+    return 0;
 }

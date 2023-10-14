@@ -4,24 +4,17 @@
 #include <stdio.h>
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1000
- #endif
+#define BUFFER_SIZE 100
+#endif
 #include <time.h>
-
-double get_execution_time(char *(*func)(int))
+int ft_strlen(const char *str)
 {
-	clock_t start, end;
-	double cpu_time_used;
+	int i;
 
-	start = clock();
-	int fd = open("input.txt", O_RDONLY);
-	while (func(fd))
-		;
-	end = clock();
-	close(fd); // close the file
-
-	cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-	return cpu_time_used;
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 char *ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -45,16 +38,6 @@ char *ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	str[j] = 0;
 	return (str);
-}
-
-int ft_strlen(const char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 char *ft_strchr(const char *s, int i)
@@ -112,31 +95,6 @@ char *ft_strjoin(char const *s1, char const *s2)
 	str[i + j] = '\0';
 	return (str);
 }
-static char *function_name(int fd, char *buf, char *backup)
-{
-	int read_line;
-	char *char_temp;
-
-	read_line = 1;
-	while (read_line != '\0')
-	{
-		read_line = read(fd, buf, BUFFER_SIZE);
-		if (read_line == -1)
-			return (0);
-		else if (read_line == 0)
-			break;
-		buf[read_line] = '\0';
-		if (!backup)
-			backup = ft_strdup("");
-		char_temp = backup;
-		backup = ft_strjoin(char_temp, buf);
-		free(char_temp);
-		char_temp = NULL;
-		if (ft_strchr(buf, '\n'))
-			break;
-	}
-	return (backup);
-}
 
 static char *extract(char *line)
 {
@@ -157,13 +115,40 @@ static char *extract(char *line)
 	line[count + 1] = '\0';
 	return (backup);
 }
+static char *function_name(int fd, char *buf, char *backup)
+{
+	int read_line;
+	char *char_temp;
+
+	read_line = 1;
+	while (1)
+	{
+		read_line = read(fd, buf, BUFFER_SIZE);
+		if (read_line == -1)
+			return (0);
+		else if (read_line == 0){
+			break;
+		}
+			buf[read_line] = '\0';
+		if (!backup)
+			backup = ft_strdup("");
+		char_temp = backup;
+		backup = ft_strjoin(backup, buf);
+		free(char_temp);
+		char_temp = NULL;
+		if (ft_strchr(buf, '\n'))
+			break;
+	}
+	return (backup);
+}
 
 char *get_next_line(int fd)
 {
 	char *line;
 	char *buf;
 	static char *backup;
-
+	
+	
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -182,17 +167,15 @@ int main(void)
 {
 	int fd;
 	char *line;
-	fd = open("input.txt", O_RDONLY);
-	int i = 1;	
+	fd = open("bigdata.txt", O_RDONLY);
+	int i = 1;
 	while ((line = get_next_line(fd)))
 	{
-		printf("\tLine number: %d\t%s\n\n\n",i, line);
+		printf("\tLine number: %d\t%s\n\n\n", i, line);
 		free(line);
 		i++;
 	}
 	printf("End of file reached\n");
-	double time_taken = get_execution_time(&get_next_line);
-	printf("\n\nExecution time: %f seconds\n", time_taken);
 	close(fd);
 	return (0);
 }

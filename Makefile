@@ -1,16 +1,13 @@
-.PHONY: libft printf
+.PHONY:  printf
 
-CC=cc
+CC=cc -g
 CFLAGS=-Wall 
-LDFLAGS=-Llibft -Lprintf -lftprintf -lft
+LDFLAGS=  -Lft_printf -lftprintf  
 
-all: libft printf server client sclean
-
-libft:
-	make -C libft
+all: printf server client sclean
 
 printf:
-	make -C printf
+	make -C ft_printf
 
 server: server.o utils.o minitalk.h
 	$(CC) $(CFLAGS) server.o utils.o $(LDFLAGS) -o server
@@ -23,13 +20,12 @@ client: client.o utils.o minitalk.h
 
 fclean: clean
 	rm -f server client
-	make -C libft fclean
+ 
 clean:
 	rm -rf *.o
-	make -C libft clean
+ 
 
 re: fclean all
 
 sclean:
 	rm -rf *.o
-	make -C libft clean

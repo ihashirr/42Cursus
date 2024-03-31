@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 // #include "libft/libft.h"
-#include "printf/ft_printf.h"
+#include "ft_printf/ft_printf.h"
 
 // int	    ft_atoi(char *str);
 // void	ft_putnbr(int nb);

@@ -6,7 +6,7 @@
 /*   By: mhashir <mhashir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 01:55:01 by mhashir           #+#    #+#             */
-/*   Updated: 2024/03/30 21:09:01 by mhashir          ###   ########.fr       */
+/*   Updated: 2024/03/31 21:27:58 by mhashir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ void	ft_putnbr_base(long long n, char *base, int i, int *std_output)
 		ft_putnbr_base(num / i, base, i, std_output);
 	*std_output += write(1, &base[num % i], 1);
 }
-/// @brief PUTS NUMBER WITH CUSTOM BASE
-/// @param n NUMBER
-/// @param base CHAR VERSION OF BASE NUMBERS
-/// @param i NUMBER OF BASE
-/// @param std_output 
+
 void	ft_putnbr( long n, char *base, int i, int *std_output)
 {
 	if (n < 0)

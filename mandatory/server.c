@@ -185,7 +185,14 @@ void init_by_zero(void)
 	t.c = (char)255;
 	t.i = 0;
 }
-
+void print_binary(char c)
+{
+	for (int i = 7; i >= 0; i--)
+	{
+		printf("%d", (c >> i) & 1);
+	}
+	printf("\n"); // Add a newline after each character
+}
 void handler1(int signum, siginfo_t *info, void *sheet)
 {
 	(void)sheet;
@@ -202,6 +209,8 @@ void handler1(int signum, siginfo_t *info, void *sheet)
 		t.c ^= (0x80 >> t.i++);
 	if (t.i == 8)
 	{
+		print_binary(t.c); // Print the binary representation
+
 		ft_putchar(t.c);
 		init_by_zero();
 	}
@@ -209,17 +218,17 @@ void handler1(int signum, siginfo_t *info, void *sheet)
 
 int main()
 {
-	int a = 0;
+	int a;
 	struct sigaction new_act1;
 	new_act1.sa_sigaction = &handler1;
 	new_act1.sa_flags = SA_SIGINFO;
 	ft_putnbr(getpid(),"0123456789",10,&a);
 		
 	write(1, "\n", 1);
-
 	sigaction(SIGUSR1, &new_act1, NULL);
 	sigaction(SIGUSR2, &new_act1, NULL);
 	while (1)
 		pause();
+
 }
  

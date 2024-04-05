@@ -5,23 +5,27 @@
             "name": "  Extension ",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/server 47257",
-            "args": [47257],
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
             "configurationProvider": "ms-vscode.cppdbg",
-            "preLaunchTask": "build"
+            
         }
     ],
     "tasks": [
         {
             "type": "cppbuild",
             "label": "build",
-            "command": "make",
-            "args": [],
+            "command": "gcc",
+			  "args": [
+			  	"-g",
+			  	"${workspaceFolder}/${fileBasename}"
+				  , "-o", "${workspaceFolder}/${fileBasenameNoExtension}",
+			],
             "options": {
                 "cwd": "${fileDirname}"
             },

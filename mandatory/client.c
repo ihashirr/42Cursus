@@ -112,7 +112,7 @@ int main(int argc, char **argv)
 	int i;
 	int shift;
 	pid_t pid;
-
+	int c = 0;
 	i = -1;
 	if (argc == 3)
 	{
@@ -123,13 +123,21 @@ int main(int argc, char **argv)
 			while (shift-- > 0)
 			{
 				if ((argv[2][i] >> shift) & 1)
-					kill(pid, SIGUSR1);
-				else
+					{
+
+						kill(pid, SIGUSR1);
+						printf("The %dth bit is: 1\n",c);
+						c++;
+					}
+				else{
 					kill(pid, SIGUSR2);
+					printf("The %dth bit is: 0\n", c);
+					c++;
+				}
 				usleep(30);
 			}
 		}
 	}
 	else
-		write(1, "invalide argument!!\n", 20);
+		write(1, "~~Usage pid and message~~\n", 20);
 }

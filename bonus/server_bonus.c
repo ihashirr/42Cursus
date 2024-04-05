@@ -6,7 +6,7 @@
 /*   By: mhashir <mhashir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:34:52 by mhashir           #+#    #+#             */
-/*   Updated: 2024/04/05 16:04:34 by mhashir          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:24:15 by mhashir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	handler1(int signum, siginfo_t *info, void *sheet)
 		g_t.c |= (0x80 >> g_t.i++);
 	else if (signum == SIGUSR2)
 		g_t.c ^= (0x80 >> g_t.i++);
+	if (g_t.c == '\0')
+		kill(info->si_pid, SIGUSR1);
 	if (g_t.i == 8)
 	{
 		ft_putchar(g_t.c);

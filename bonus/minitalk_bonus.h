@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   minitalk_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhashir <mhashir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 03:07:26 by mhashir           #+#    #+#             */
-/*   Updated: 2023/09/22 03:21:37 by mhashir          ###   ########.fr       */
+/*   Created: 2024/04/05 15:59:45 by mhashir           #+#    #+#             */
+/*   Updated: 2024/04/05 16:01:12 by mhashir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef MINITALK_BONUS_H
+# define MINITALK_BONUS_H
 
-# include <stdio.h>
-# include <stdarg.h>
-# include <unistd.h>
+# include <stdlib.h>
+# include <signal.h>
 # include <unistd.h>
 
-int		ft_printf(const char *format, ...);
-void	ft_putnbr_base(long long n, char *base, int i, int *std_output);
-void	ft_putstr(char *s, int *std_output);
-void	print_pointer(unsigned long long p, int *std_output);
+void	ft_putchar(char c);
+int		ft_atoi(const char *s);
 void	ft_putnbr(long n, char *base, int i, int *std_output);
-#endif
+
+typedef struct init
+{
+	int		i;
+	char	c;
+}			t_init;
+
+#endif 
